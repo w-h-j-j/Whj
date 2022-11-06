@@ -112,7 +112,8 @@ public class MainActivity3 extends AppCompatActivity {
         ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true).init();
         testJectpckForLiveData();
         findViewById(R.id.btn_rxjava).setOnClickListener((view -> {
-            testNotification();
+            Logger.d("无敌");
+            ToastUtils.show("横扫千军");
         }));
 
     }
