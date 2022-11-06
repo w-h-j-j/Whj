@@ -115,7 +115,13 @@ public class MainActivity3 extends AppCompatActivity {
             Logger.d("无敌");
             ToastUtils.show("横扫千军");
         }));
+    }
 
+    //添加按钮
+    private Button addButton(String name){
+        Button button = new Button(this);
+        button.setText(name);
+        return button;
     }
 
     private void testJectpckForLiveData() {
