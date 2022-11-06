@@ -52,6 +52,14 @@ public class MMKVUtil {
         return mmkv.decodeBool(key,false);
     }
 
+    public void setEncode(String key,long value){
+        mmkv.encode(key,value);
+    }
+
+    public long getDecodeLong(String key){
+        return mmkv.decodeLong(key, (long) 1);
+    }
+
     /**存储集合*/
     public void setEncode(String key, HashSet<String> hashSet){
         mmkv.encode(key,hashSet);
