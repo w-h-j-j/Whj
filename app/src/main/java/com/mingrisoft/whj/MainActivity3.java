@@ -132,6 +132,7 @@ public class MainActivity3 extends AppCompatActivity {
 
     private void print(){
         System.out.println("你好");
+        System.out.println("你好");
     }
 
     private void testImageSelector() {
