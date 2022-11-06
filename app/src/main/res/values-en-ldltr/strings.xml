@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Android Dve</string>
+    <string name="string_one">One</string>
+    <string name="string_two">Two</string>
+    <string name="string_three">Three</string>
+    <string name="string_four">Four</string>
+    <string name="string_five">Five</string>
+    <string name="string_six">Six</string>
+    <string name="string_seven">Seven</string>
+    <string name="string_night">Eight</string>
+    <string name="string_nine">Nine</string>
+</resources>

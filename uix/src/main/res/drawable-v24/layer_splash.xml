@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:opacity="opaque">
+
+    <!--白色矩形，作为背景色-->
+    <item>
+        <shape
+            android:shape="rectangle">
+            <solid android:color="#03A9F4"/>
+        </shape>
+    </item>
+
+    <!--启动页的Logo-->
+    <item
+        android:bottom="100dp"
+        android:width="280dp"
+        android:height="280dp"
+        android:gravity="center_horizontal|bottom">
+        <bitmap
+            android:src="@drawable/icon_add_work" />
+    </item>
+
+
+</layer-list>

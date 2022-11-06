@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">UIX</string>
+    <string name="bottom_title_home">main</string>
+    <string name="bottom_title_shopping_car">shop</string>
+    <string name="bottom_title_mine">mine</string>
+    <string name="string_click_me">click me</string>
+    <string name="string_load_message">please waiting</string>
+</resources>
