@@ -2,6 +2,7 @@ package com.mingrisoft.whj;
 
 import android.app.Application;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.hjq.toast.ToastUtils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -59,11 +60,19 @@ public class MyApp extends Application {
 
         //初始化Sugar
         SugarContext.init(this);
+
+        //初始化ARouter
+        if (true) {
+            ARouter.openLog();
+            ARouter.openDebug();
+        }
+        ARouter.init(this);
     }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
         SugarContext.terminate();
+        ARouter.getInstance().destroy();
     }
 }

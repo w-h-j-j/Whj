@@ -33,7 +33,14 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-
+    //使用页面路由依赖必须要添加的配置
+    defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
 
 }
 
@@ -51,88 +58,59 @@ dependencies {
 
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
     implementation 'com.google.zxing:core:3.3.0'
-
-
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')       //调用动态库
-
     implementation 'com.squareup.okhttp3:okhttp:3.14.9'     //4.4.0
-
     implementation 'liji.library.dev:citypickerview:0.7.0'     //三级联动
-
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-15'     //下拉刷新控件
 
     implementation 'com.github.liys666666:LProgressView:V1.0.82'      //进度条
-
     implementation 'cn.yc:YCStatusBarLib:1.3.1'     //可以修改状态栏的颜色
-
     implementation 'com.jakewharton:butterknife:7.0.1'       //快速获取布局中的控件
-
     implementation 'com.daimajia.swipelayout:library:1.2.0@aar'    //可以滑动的Item控件，
-
     implementation 'com.daimajia.androidanimations:library:2.4@aar'    //超简单的组件动画    近50种动画
 
     implementation 'com.github.f0ris.sweetalert:library:1.5.1'         //带有动画的dialog  注意：使用此依赖需要在配置文件AndroidManifest文件中的application节点中添加 tools:replace="icon"
-
     implementation 'com.getbase:floatingactionbutton:1.10.0'                  //浮动的按钮
-
     implementation 'com.wang.avi:library:2.1.3'       //漂亮的加载动画开源库
-
     implementation 'io.reactivex.rxjava2:rxjava:2.1.3'               //RxJava网络库
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     implementation 'com.liulishuo.filedownloader:library:1.7.4'
-
     implementation 'com.github.getActivity:ToastUtils:10.5'
-
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'          //retrofit框架
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
-
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'    //为了使RxJava与retrofit结合  .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
 
     implementation 'com.youth.banner:banner:1.4.10'
-
     implementation 'com.squareup.picasso:picasso:2.5.2'
-
     implementation 'com.github.getActivity:TitleBar:9.5'           //标题栏
-
     implementation 'com.geyifeng.immersionbar:immersionbar:3.2.2'  //状态栏
-
     implementation 'com.github.likaiyuan559:TouchEffects:0.4.1'    //给控件添加点击效果
 
     implementation 'com.yanzhenjie:permission:2.0.3'               //动态权限
-
     implementation 'com.orhanobut:logger:2.1.1'                    //日志
-
     implementation 'com.github.xuexiangjys:XUI:1.1.5'              //XUI
-
     implementation 'com.google.code.gson:gson:2.9.0'               //快速解析Json数据
-
     implementation 'org.greenrobot:eventbus:3.1.1'                 //eventbus 通信
 
     implementation 'com.airbnb.android:lottie:3.2.2'               //动画库
-
     implementation 'com.github.donkingliang:ImageSelector:2.2.1'    //图片选择器
-
     implementation 'com.zhihu.android:matisse:0.5.3-beta3'          //知乎官网的图片选择器
-
     implementation 'com.tencent.tbs:tbssdk:44085'                  // X5内核WebView
-
     implementation 'com.tencent:mmkv-static:1.2.2'                 //数据存储
 
     //implementation 'io.realm:realm-gradle-plugin:10.8.0'            //数据存储
     //implementation "io.realm:realm-transformer:2.2.1"
 
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'  //扫描
-
     implementation 'com.blankj:utilcodex:1.31.0'                   //AndroidUtilCode 最强大的工具类
-
     implementation 'com.github.satyan:sugar:1.5'                   //Sugar 数据存储
-
     implementation 'com.github.ns3chz:Picker:1.0.2'                //文件选择
-
     implementation 'com.github.zzy0516alex:FileSelectorRelease:v3.0'
-
     implementation 'com.github.apl-devs:appintro:v4.2.2'          //引导页
+
+    implementation 'com.alibaba:arouter-api:1.4.1'                //页面路由
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
 
 
 }

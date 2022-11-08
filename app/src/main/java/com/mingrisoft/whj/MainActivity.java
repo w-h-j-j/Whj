@@ -18,6 +18,7 @@ import android.os.Environment;
 import android.view.View;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.mingrisoft.whj.broadcast.BatteryListener;
 import com.mingrisoft.whj.broadcast.IBatteryStateListener;
 import com.mingrisoft.whj.util.LanguageUtil;
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         //v.setLayoutParams(params);
         findViewById(R.id.b1).setOnClickListener((view)->{startActivity(new Intent(MainActivity.this, MainActivity1.class));});
         findViewById(R.id.b2).setOnClickListener((view)->{startActivity(new Intent(MainActivity.this, MainActivity2.class));});
-        findViewById(R.id.b3).setOnClickListener((view)->{startActivity(new Intent(MainActivity.this, MainActivity3.class));});
+        findViewById(R.id.b3).setOnClickListener((view)->{ ARouter.getInstance().build("/app/MainActivity3").withString("kkk","花有重开日,人无在少年").navigation(); });
         findViewById(R.id.b4).setOnClickListener((view)->{startActivity(new Intent(MainActivity.this, MainActivity4.class)); });
         findViewById(R.id.b5).setOnClickListener((view)->{
             //startActivity(new Intent(MainActivity.this, MainActivity5.class));

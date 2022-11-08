@@ -33,6 +33,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.gson.GsonBuilder;
 import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.toast.ToastUtils;
@@ -98,9 +101,11 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
+@Route(path = "/app/MainActivity3")
 public class MainActivity3 extends AppCompatActivity {
 
+    @Autowired()
+    String kkk;   //kkk在这里即充当键，又充当变量的名字
     private final String TAG="测试模块MainActivity3";
     private final String PATH="https://img2.baidu.com/it/u=3395582942,4228440123&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500";
     private ProgressDialog progressDialog;
@@ -109,11 +114,12 @@ public class MainActivity3 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
+        ARouter.getInstance().inject(this);
         ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true).init();
         testJectpckForLiveData();
         findViewById(R.id.btn_rxjava).setOnClickListener((view -> {
             Logger.d("无敌");
-            ToastUtils.show("横扫千军");
+            ToastUtils.show(kkk);
         }));
     }
 
