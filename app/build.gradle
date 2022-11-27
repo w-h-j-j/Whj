@@ -2,12 +2,12 @@ plugins {
     id 'com.android.application'
 }
 android {
-    compileSdk 30
+    compileSdk 32    //为了使用room数据存储框架 由之前的30改为了33
 
     defaultConfig {
         applicationId "com.mingrisoft.whj"
         minSdk 24
-        targetSdk 30
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 
@@ -56,6 +56,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.2'
+
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
     implementation 'com.google.zxing:core:3.3.0'
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')       //调用动态库
@@ -99,18 +101,27 @@ dependencies {
     implementation 'com.tencent.tbs:tbssdk:44085'                  // X5内核WebView
     implementation 'com.tencent:mmkv-static:1.2.2'                 //数据存储
 
-    //implementation 'io.realm:realm-gradle-plugin:10.8.0'            //数据存储
-    //implementation "io.realm:realm-transformer:2.2.1"
-
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'  //扫描
     implementation 'com.blankj:utilcodex:1.31.0'                   //AndroidUtilCode 最强大的工具类
     implementation 'com.github.satyan:sugar:1.5'                   //Sugar 数据存储
     implementation 'com.github.ns3chz:Picker:1.0.2'                //文件选择
     implementation 'com.github.zzy0516alex:FileSelectorRelease:v3.0'
-    implementation 'com.github.apl-devs:appintro:v4.2.2'          //引导页
+    implementation 'com.github.AppIntro:AppIntro:6.1.0'          //引导页
 
     implementation 'com.alibaba:arouter-api:1.4.1'                //页面路由
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
+    implementation 'com.squareup.leakcanary:leakcanary-android:2.7'//检查内存泄漏
+    implementation 'me.rosuh:AndroidFilePicker:0.8.2'              //文件选择器
+
+    implementation 'androidx.room:room-runtime:2.4.3'
+    annotationProcessor 'androidx.room:room-compiler:2.4.3'
+
+    def dbFlow_version = "4.2.4"
+    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbFlow_version}"
+    implementation "com.github.Raizlabs.DBFlow:dbflow-core:${dbFlow_version}"
+    implementation "com.github.Raizlabs.DBFlow:dbflow:${dbFlow_version}"
+
+    //implementation 'com.github.amggg:YXing:V1.1.1'               //扫米奥
 
 
 }

@@ -8,6 +8,9 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
 import com.orm.SugarContext;
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowLog;
+import com.raizlabs.android.dbflow.config.FlowManager;
 import com.tencent.mmkv.MMKV;
 import com.tencent.smtt.export.external.TbsCoreSettings;
 import com.tencent.smtt.sdk.QbSdk;
@@ -67,6 +70,12 @@ public class MyApp extends Application {
             ARouter.openDebug();
         }
         ARouter.init(this);
+
+        //初始化DBFlow
+        FlowManager.init(new FlowConfig.Builder(this).build());
+        //设置日志显示
+        FlowLog.setMinimumLoggingLevel(FlowLog.Level.V);
+
     }
 
     @Override

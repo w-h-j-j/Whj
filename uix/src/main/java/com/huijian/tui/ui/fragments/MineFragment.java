@@ -2,7 +2,6 @@ package com.huijian.tui.ui.fragments;
 
 import com.huijian.tui.R;
 import com.huijian.tui.ui.BaseFragment;
-import com.xuexiang.xui.widget.toast.XToast;
 
 public class MineFragment extends BaseFragment {
 
@@ -13,8 +12,6 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void initViews() {
-        find(R.id.img_mine).setOnClickListener((view -> {
-            XToast.normal(getContext(),"你好").show();
-        }));
+        find(R.id.btn).setOnClickListener((view -> { }));
     }
 }

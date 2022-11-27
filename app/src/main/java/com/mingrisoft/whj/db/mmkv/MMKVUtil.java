@@ -1,4 +1,4 @@
-package com.mingrisoft.whj.util;
+package com.mingrisoft.whj.db.mmkv;
 
 import android.os.Parcelable;
 

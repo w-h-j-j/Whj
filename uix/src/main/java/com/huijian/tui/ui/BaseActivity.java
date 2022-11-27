@@ -1,6 +1,7 @@
 package com.huijian.tui.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -14,6 +15,8 @@ import com.huijian.tui.util.LanguageUtil;
 import com.huijian.tui.util.MMKVUtil;
 import com.lky.toucheffectsmodule.factory.TouchEffectsFactory;
 import com.xuexiang.xui.XUI;
+import com.xuexiang.xui.widget.toast.XToast;
+import com.yxing.ScanCodeConfig;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -23,7 +26,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         try {
-            Thread.sleep(3000);
+            Thread.sleep(1500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -52,4 +55,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         resources.updateConfiguration(configuration,resources.getDisplayMetrics());
         return resources;
     }
+
+
 }

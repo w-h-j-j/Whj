@@ -14,16 +14,7 @@ public class NameViewModel extends ViewModel {
         return liveData;
     }
 
-    public void setData(){
-        int a=0;
-        while (a<10){
-            try {
-                liveData.setValue(String.valueOf(a));
-                a++;
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+    public void setData(String value){
+        liveData.setValue(String.valueOf(value));
     }
 }

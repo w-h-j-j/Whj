@@ -31,16 +31,17 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation 'com.github.xuexiangjys:XUI:1.1.5'              //XUI
     implementation 'com.github.getActivity:TitleBar:9.5'           //标题栏
-    implementation 'com.geyifeng.immersionbar:immersionbar:3.2.2'  //状态栏
     implementation 'com.jakewharton:butterknife:10.2.3'            //黄油刀
     implementation project(path: ':BaseDialog')                    //自定义库
     implementation 'com.github.likaiyuan559:TouchEffects:0.4.1'    //给控件添加点击效果
     implementation 'com.tencent:mmkv-static:1.2.2'                 //数据存储
+
+    implementation 'com.github.amggg:YXing:V1.1.1'                 //扫米奥
 }

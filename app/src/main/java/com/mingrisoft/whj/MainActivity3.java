@@ -3,17 +3,11 @@ package com.mingrisoft.whj;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 
 import android.content.Intent;
@@ -45,26 +39,22 @@ import com.mingrisoft.whj.model.User;
 import com.mingrisoft.whj.presenter.LoginPresenter;
 import com.mingrisoft.whj.presenter.StarPresent;
 import com.mingrisoft.whj.retrofits.IRetrofitWeatherService;
-import com.mingrisoft.whj.retrofits.RetrofitClient;
 import com.mingrisoft.whj.retrofits.bean.CityWeatherBean;
 import com.mingrisoft.whj.util.MyTool;
+import com.mingrisoft.whj.util.PermissionPageManagement;
 import com.mingrisoft.whj.view.IStarView;
 import com.mingrisoft.whj.view.ILoginView;
 import com.orhanobut.logger.Logger;
-import com.xuexiang.xui.XUI;
 import com.xuexiang.xui.widget.picker.widget.TimePickerView;
 import com.xuexiang.xui.widget.picker.widget.builder.TimePickerBuilder;
 import com.xuexiang.xui.widget.picker.widget.listener.OnTimeSelectListener;
-import com.z.fileselectorlib.FileSelectorSettings;
-import com.z.fileselectorlib.Objects.BasicParams;
-import com.z.fileselectorlib.Objects.FileInfo;
+import com.yanzhenjie.permission.AndPermission;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -75,7 +65,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -86,6 +75,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import me.rosuh.filepicker.config.FilePickerManager;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -114,13 +104,49 @@ public class MainActivity3 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
+        EventBus.getDefault().register(this);
         ARouter.getInstance().inject(this);
         ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true).init();
         testJectpckForLiveData();
+
+        //单机
         findViewById(R.id.btn_rxjava).setOnClickListener((view -> {
-            Logger.d("无敌");
-            ToastUtils.show(kkk);
+
         }));
+
+        //长按
+        findViewById(R.id.btn_rxjava).setOnLongClickListener((v -> {
+
+            return true;
+        }));
+    }
+
+    //测试权限，并测试文件选择器
+    @SuppressLint("ObsoleteSdkInt")
+    private void testFilePicker() {
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+            if (AndPermission.hasPermissions(this,Manifest.permission.READ_EXTERNAL_STORAGE)){
+                //执行业务
+                FilePickerManager
+                        .from(this)
+                        .setCustomRootPath(Environment.getExternalStorageDirectory().getPath()+"/智驾刷写文件")
+                        .forResult(FilePickerManager.REQUEST_CODE);
+            }else {
+                //申请权限
+                AndPermission.with(this)
+                        .runtime()
+                        .permission(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE})
+                        .onGranted(data -> { System.out.println("权限"+data.toString()+"获取成功!"); })
+                        .onDenied(data -> { System.out.println("权限"+data.toString()+"获取失败!");PermissionPageManagement.goToSetting(this); })
+                        .start();
+            }
+        }else {
+            //直接执行业务
+            FilePickerManager
+                    .from(this)
+                    .setCustomRootPath(Environment.getExternalStorageDirectory().getPath()+"/智驾刷写文件")
+                    .forResult(FilePickerManager.REQUEST_CODE);
+        }
     }
 
     //添加按钮
@@ -586,17 +612,18 @@ public class MainActivity3 extends AppCompatActivity {
         });
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
     public void onMessageEvent(User user){
-        ToastUtils.show(user.getUsername());
+        ToastUtils.show(user.getPassword());
     }
 
+    @SuppressLint("CheckResult")
     private void testRxJavaOperate(){
         Observable.create(new ObservableOnSubscribe<User>() {
             @SuppressLint("CheckResult")
             @Override
             public void subscribe(ObservableEmitter<User> e) throws Exception {
-                e.onNext(new User("d","s"));
+                e.onNext(new User("老干","，26岁"));
             }
         }).subscribe(new Consumer<User>() {
             @Override
@@ -610,28 +637,41 @@ public class MainActivity3 extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //获取图片路径
-        if (requestCode==1 && resultCode==Activity.RESULT_OK && data!=null){
-            Uri uri=data.getData();
-            String[] filePathColumns={MediaStore.Images.Media.DATA};
-            Cursor cursor=getContentResolver().query(uri,filePathColumns,null,null,null);
-            cursor.moveToFirst();
-            int columnIndex=cursor.getColumnIndex(filePathColumns[0]);
-            String imagePath=cursor.getString(columnIndex);
-
-            cursor.close();
+        if (resultCode==Activity.RESULT_OK && data!=null){
+            if (requestCode==1){
+                Uri uri=data.getData();
+                String[] filePathColumns={MediaStore.Images.Media.DATA};
+                Cursor cursor=getContentResolver().query(uri,filePathColumns,null,null,null);
+                cursor.moveToFirst();
+                int columnIndex=cursor.getColumnIndex(filePathColumns[0]);
+                String imagePath=cursor.getString(columnIndex);
+                cursor.close();
+            }else if (requestCode==FilePickerManager.REQUEST_CODE){
+                List<String> list = FilePickerManager.obtainData();
+                for (String file:list) {
+                    Logger.d(file);
+                }
+            }
+//            if (requestCode==ScanCodeConfig.QUESTCODE){
+//                try {
+//                    Bundle extras = data.getExtras();
+//                    if(extras != null){
+//                        String code = extras.getString(ScanCodeConfig.CODE_KEY);
+//                        ToastUtils.show(code);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    Logger.d(e.getMessage());
+//                }
+//            }
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //EventBus.getDefault().register(this);
-    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
     }
 
     class MyInterceptor implements Interceptor{

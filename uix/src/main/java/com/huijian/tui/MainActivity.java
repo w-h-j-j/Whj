@@ -7,14 +7,16 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.bar.OnTitleBarListener;
 import com.hjq.bar.TitleBar;
 import com.huijian.tui.adapters.ViewPagerAdapter;
@@ -42,7 +44,7 @@ public class MainActivity extends BaseActivity {
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void initView() {
-        ImmersionBar.with(this).statusBarColor(R.color.blue).statusBarDarkFont(false).init();
+
         titleBar=findViewById(R.id.title_bar);
         titleBar.setTitle(R.string.bottom_title_home);
         titleBar.setOnTitleBarListener(new OnTitleBarListener() {
@@ -154,5 +156,10 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.blue));
+        }
     }
 }

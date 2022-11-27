@@ -25,6 +25,8 @@ import com.mingrisoft.whj.adapters.TypeThreeViewHolder;
 import com.mingrisoft.whj.adapters.TypeTwoViewHolder;
 import com.mingrisoft.whj.components.CustomActionBar;
 import com.orhanobut.logger.Logger;
+import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,6 +93,8 @@ public class MainActivity9 extends AppCompatActivity {
                     typeOneViewHolder.bindHolder(list.get(position));
                     typeOneViewHolder.banner.setImageLoader(new MyImageLoader())
                             .setImages(list.get(position).getUrlList())
+                            .setBannerAnimation(Transformer.CubeOut)
+                            .setOnBannerListener(position1 -> ToastUtils.show(list.get(position).getUrlList().get(position1)))
                             .start();
 
                 }
@@ -127,7 +131,6 @@ public class MainActivity9 extends AppCompatActivity {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //Toast.makeText(MainActivity9.this, "这是类型"+holder.getItemViewType(), Toast.LENGTH_SHORT).show();
                         ToastUtils.show("这是类型"+holder.getItemViewType());
                     }
                 });
@@ -157,14 +160,12 @@ public class MainActivity9 extends AppCompatActivity {
                 type=2;
                 dataModel.setType(type);
                 dataModel.setName("托尼"+i);
-                dataModel.setAge("年龄"+String.valueOf(i*2));
+                dataModel.setAge("年龄"+ i * 2);
             }else {
                 type=3;
                 dataModel.setType(type);
                 dataModel.setImgIdList(imgList);
             }
-
-
             list.add(dataModel);
         }
         adapter.addList(list);
